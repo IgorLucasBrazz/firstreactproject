@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Home from './routes/Home';
+import Home from './rotas/Home';
 import reportWebVitals from './reportWebVitals';
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components'
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import Header from './components/Header';
-import Favorites from './routes/Favorites';
+import Header from './componentes/Header'
+import Favoritos from './rotas/Favoritos';
 
 const GlobalStyle = createGlobalStyle`
-  body { 
+  body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
       'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -22,9 +22,10 @@ const GlobalStyle = createGlobalStyle`
       monospace;
   }
 
-  li{
-    list-style: none;
+  li {
+    list-style: none;    
   }
+
 
 `
 
@@ -33,10 +34,10 @@ root.render(
   <React.StrictMode>
     <GlobalStyle />
     <BrowserRouter>
-    <Header></Header>  
+      <Header />
       <Routes>
-        <Route path="/favorites" element={<Favorites/>}/>
-        <Route path="/" element={<Home/>}/>
+        <Route path="/favoritos" element={<Favoritos/>} />
+        <Route path="/" element={<Home />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
@@ -46,6 +47,3 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
-
-
-//BrowserRouter - encapsulador
