@@ -1,7 +1,9 @@
 import Input from "../Input";
 import { styled } from "styled-components";
-import { useState } from "react";
-import { books } from './dadosPesquisa'
+import { useEffect, useState } from "react";
+import { getBooks } from "../../server/books";
+import { postFavorite } from "../../server/favorite";
+import livroImg from '../../images/livro.png'
 
 
 const SearchContainer = styled.section`
@@ -45,6 +47,25 @@ const Result = styled.div`
 
 function Search() {
     const [researchedBooks, setResearchedBooks] = useState([])
+    const [ books, setBooks] = useState([])
+    
+    async function fetchBooks(){
+        const books = await getBooks()
+        setBooks(books)
+    }
+
+    useEffect(() => {
+        fetchBooks()
+    }, [])
+
+    
+    async function insertFavorites(id){
+        await postFavorite(id)
+        alert(`Livro de id:${id} inserido`)
+    }
+
+    
+
 
 
     return(
@@ -55,15 +76,15 @@ function Search() {
             placeholder="Escreva sua próxima leitura"
             onBlur={event => {
                 const typedText = event.target.value
-                const searchResult = books.filter( book => book.name.includes(typedText))
+                const searchResult = books.length ? books.filter( book => book.nome.includes(typedText)) : []
                 setResearchedBooks(searchResult)
             }}   
         >
         </Input>
             { researchedBooks.map( book => (
-                <Result>
-                    <img src={book.src} alt='book'/>
-                    <p>{book.name}</p>
+                <Result onClick={() => insertFavorites(book.id)}>
+                    <img src={book.src}/>
+                    <p>{book.nome}</p>
                 </Result>
             ))}
         </SearchContainer>

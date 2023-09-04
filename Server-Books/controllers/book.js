@@ -29,7 +29,7 @@ function getABookID(req, res){
 function postBook(req, res){
     try{
         const newBookCreate = req.body
-        if (req.body.name){
+        if (req.body.nome){
             insertBook(newBookCreate)
             res.status(201)
             res.send("Livro inserido")
